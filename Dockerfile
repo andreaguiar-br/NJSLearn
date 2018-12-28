@@ -12,6 +12,10 @@ RUN npm install
 # If you are building your code for production
 # RUN npm install --only=production
 
+# instalando driver do mongodb para conexão
+RUN npm install mongodb
+
+
 # Bundle app source
 COPY . .
 

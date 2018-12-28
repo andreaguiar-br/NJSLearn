@@ -1,0 +1,36 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    volumes: 
+      - /home/f0739445/Documentos/labbs/nodejs/mongo:/etc/mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: demolabbs
+    networks:
+      - net-backend
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: demolabbs
+    networks: 
+      - net-backend
+      - net-frontend
+
+  node-web-app:
+    image: andrelsa/node-web-app:latest
+    networks: 
+      - net-backend
+      - net-frontend
+
+networks:
+  net-backend:
+    driver: bridge
+  net-frontend:
+    driver: bridge
