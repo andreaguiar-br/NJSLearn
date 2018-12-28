@@ -1,7 +1,7 @@
 FROM node:8
 
 # Create app directory
-WORKDIR /user/home/f0739445/Documentos/labbs/nodejs
+WORKDIR .
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
