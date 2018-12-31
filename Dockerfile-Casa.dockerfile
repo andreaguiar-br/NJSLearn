@@ -1,7 +1,7 @@
-FROM node:8
+FROM node:10.15.0
 
 # Create app directory
-WORKDIR /home/f0739445/Documentos/labbs/nodejs
+WORKDIR /home/andrelsa/Documentos/estudoDocker/NJSLearn
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
