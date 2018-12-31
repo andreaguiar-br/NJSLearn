@@ -27,6 +27,7 @@ const password = encodeURIComponent('demolabbs');
 const authMechanism = 'DEFAULT';
 
 // Connection URL
+// const url = 'mongodb://localhost:27017';
 const url = 'mongodb://localhost:27017';
 //const url = `mongodb://${user}:${password}@localhost:27017/?authMechanism=${authMechanism}`;
 
@@ -36,7 +37,7 @@ const dbName = 'onboard';
 
 // Create a new MongoClient
 const client = new MongoClient(url);
-
+console.log("Tentando conectar ...");
 // Use connect method to connect to the Server
 client.connect(function(err) {
   assert.equal(null, err);
