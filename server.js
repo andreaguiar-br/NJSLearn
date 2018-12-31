@@ -28,12 +28,23 @@ const authMechanism = 'DEFAULT';
 
 // Connection URL
 // const url = 'mongodb://localhost:27017';
-const url = 'mongodb://localhost:27017';
-//const url = `mongodb://${user}:${password}@localhost:27017/?authMechanism=${authMechanism}`;
+//const url = 'mongodb://localhost:27017';
+const url = `mongodb://${user}:${password}@localhost:27017/?useNewUrlPaser=true?authMechanism=${authMechanism}`;
 
 
 // Database Name
 const dbName = 'onboard';
+
+//debugando
+console.log("Instanciando MongoClient");
+console.log(url);
+// var MongoClient = require('mongodb').MongoClient;
+// MongoClient.connect(url, function(err, db) {
+//   if(!err) {
+//     console.log("We are connected");
+//   }
+//   db.close();
+// });
 
 // Create a new MongoClient
 const client = new MongoClient(url);
