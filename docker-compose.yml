@@ -33,8 +33,6 @@ services:
       - 8080:8080
     depends_on: 
       - mongo
-    volumes:
-      - /home/andrelsa/Documentos/estudoDocker/NJSLearn/node_modules:/app
     networks: 
       - net-backend
       - net-frontend
