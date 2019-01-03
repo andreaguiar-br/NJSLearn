@@ -46,6 +46,17 @@ services:
     networks:
       - net-frontend
 
+  grafana:
+    image: grafana/grafana
+    # volumes:
+      # - /home/f0739445/Documentos/labbs/nodejs/grafana:/etc/grafana
+      # - /home/f0739445/Documentos/labbs/nodejs/grafana/data:/var/lib/grafana
+    # user: "104"
+    ports:
+      - 3000:3000
+    networks: 
+      - net-frontend
+
 networks:
   net-backend:
     driver: bridge

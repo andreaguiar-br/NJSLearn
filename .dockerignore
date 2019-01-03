@@ -2,3 +2,4 @@ npm-debug.log
 mongo
 *.yml
 *.dockerfile
+grafana
