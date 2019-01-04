@@ -7,6 +7,7 @@ WORKDIR /home/f0739445/Documentos/labbs/nodejs
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
+COPY iniciar.sh .
 
 RUN npm install
 # If you are building your code for production
@@ -17,5 +18,6 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "npm", "start" ]
+# CMD [ "npm", "start" ]
+CMD ["iniciar.sh"]
 

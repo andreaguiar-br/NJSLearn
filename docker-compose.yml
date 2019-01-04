@@ -7,9 +7,10 @@ services:
     restart: always
     ports:
       - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: demolabbs
+    env_file: .env
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: $MONGO_ROOT_USER
+    #   MONGO_INITDB_ROOT_PASSWORD: $MONGO_ROOT_PWD
     networks:
       - net-backend
 
@@ -21,8 +22,8 @@ services:
   #   ports:
   #     - 8081:8081
   #   environment:
-  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
-  #     ME_CONFIG_MONGODB_ADMINPASSWORD: demolabbs
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_ROOT_USER
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_ROOT_PWD
   #   networks: 
   #     - net-backend
   #     - net-frontend
@@ -33,6 +34,10 @@ services:
       - 8080:8080
     depends_on: 
       - mongo
+    env_file: .env
+    # environment:
+    #   MONGO_ROOT_USER: $MONGO_ROOT_USER
+    #   MONGO_ROOT_PWD: $MONGO_ROOT_PWD
     networks: 
       - net-backend
       - net-frontend
@@ -47,11 +52,10 @@ services:
       - net-frontend
 
   grafana:
-    image: grafana/grafana
-    # volumes:
-      # - /home/f0739445/Documentos/labbs/nodejs/grafana:/etc/grafana
-      # - /home/f0739445/Documentos/labbs/nodejs/grafana/data:/var/lib/grafana
-    # user: "104"
+    image: grafana/grafana:5.3.2
+    volumes:
+      - vol-grafana:/var/lib/grafana
+    # user: "472"
     ports:
       - 3000:3000
     networks: 
@@ -62,3 +66,6 @@ networks:
     driver: bridge
   net-frontend:
     driver: bridge
+
+volumes:
+  vol-grafana:
