@@ -22,8 +22,10 @@ app.get('/hello', (req, res) => {
 // Conetando com o BD
 const MongoClient = require('mongodb').MongoClient;
 // Autenticação
-const user = encodeURIComponent('root');
-const password = encodeURIComponent('demolabbs');
+// const user = encodeURIComponent('root');
+// const password = encodeURIComponent('demolabbs');
+const user = encodeURIComponent(process.env.MONGO_ROOT_USER);
+const password = encodeURIComponent(process.env.MONGO_ROOT_PWD);
 const authMechanism = 'DEFAULT';
 // Connection URL
 const url = `mongodb://${user}:${password}@mongo:27017/?useNewUrlPaser=true?authMechanism=${authMechanism}`;

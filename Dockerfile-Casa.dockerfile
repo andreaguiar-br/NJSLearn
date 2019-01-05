@@ -1,4 +1,4 @@
-FROM node:10.15.0
+FROM node:8
 
 # Create app directory
 WORKDIR /home/andrelsa/Documentos/estudoDocker/NJSLearn
@@ -7,6 +7,7 @@ WORKDIR /home/andrelsa/Documentos/estudoDocker/NJSLearn
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
+COPY iniciar.sh ./
 
 RUN npm install
 # If you are building your code for production
@@ -17,5 +18,6 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "npm", "start" ]
+# CMD [ "npm", "start" ]
+CMD [ "./iniciar.sh" ]
 

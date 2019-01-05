@@ -7,47 +7,65 @@ services:
     restart: always
     ports:
       - 27017:27017
+    env_file: .env
     # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: root
-    #   MONGO_INITDB_ROOT_PASSWORD: demolabbs
+    #   MONGO_INITDB_ROOT_USERNAME: $MONGO_ROOT_USER
+    #   MONGO_INITDB_ROOT_PASSWORD: $MONGO_ROOT_PWD
     networks:
-      net-frontend:
-    #    ipv4_address: 172.19.0.10
+      - net-backend
 
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    # environment:
-    #   ME_CONFIG_MONGODB_ADMINUSERNAME: root
-    #   ME_CONFIG_MONGODB_ADMINPASSWORD: demolabbs
-    networks: 
-      # et-backend:
-      net-frontend:
-        # ipv4_address: 172.21.0.1
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   depends_on: 
+  #     - mongo
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_ROOT_USER
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_ROOT_PWD
+  #   networks: 
+  #     - net-backend
+  #     - net-frontend
 
   node-web-app:
-    image: andreaguiarbr/node-web-app:latest
+    image: andreaguiarbr/node-web-app:latest 
+    ports:
+      - 8080:8080
     depends_on: 
       - mongo
-    volumes:
-      - /home/andrelsa/Documentos/estudoDocker/NJSLearn/node_modules:/app
-      - /home/andrelsa/Documentos/estudoDocker/NJSLearn/node_modules/logs:/root/.npm/_logs
+    env_file: .env
+    # environment:
+    #   MONGO_ROOT_USER: $MONGO_ROOT_USER
+    #   MONGO_ROOT_PWD: $MONGO_ROOT_PWD
     networks: 
-      # net-backend:
-      net-frontend:
-        ipv4_address: 172.20.0.10
+      - net-backend
+      - net-frontend
 
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - /home/andrelsa/Documentos/estudoDocker/NJSLearn/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - net-frontend
+
+  grafana:
+    image: grafana/grafana:5.3.2
+    volumes:
+      - vol-grafana:/var/lib/grafana
+    # user: "472"
+    ports:
+      - 3000:3000
+    networks: 
+      - net-frontend
 
 networks:
   net-backend:
     driver: bridge
-    # ipam:
-    #   config:
-    #   - subnet: 172.19.0.0/24   
   net-frontend:
     driver: bridge
-    ipam:
-      config:
-      - subnet: 172.20.0.0/24 
+
+volumes:
+  vol-grafana:
