@@ -1,3 +1,4 @@
 mongo
 grafana
 .env
+nginx/logs

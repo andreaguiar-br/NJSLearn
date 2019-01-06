@@ -3,3 +3,4 @@ mongo
 *.yml
 *.dockerfile
 grafana
+nginx
