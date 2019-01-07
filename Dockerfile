@@ -9,7 +9,7 @@ WORKDIR /home/f0739445/Documentos/labbs/nodejs
 COPY package*.json ./
 COPY iniciar.sh ./
 
-RUN npm install
+RUN npm install 
 # If you are building your code for production
 # RUN npm install --only=production
 

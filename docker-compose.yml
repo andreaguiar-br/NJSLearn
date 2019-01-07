@@ -6,7 +6,7 @@ services:
       - /home/f0739445/Documentos/labbs/nodejs/mongo:/data/db
     restart: always
     ports:
-      - 27017:27017
+      - "27017"
     env_file: .env
     # environment:
     #   MONGO_INITDB_ROOT_USERNAME: $MONGO_ROOT_USER
@@ -21,9 +21,10 @@ services:
   #     - mongo
   #   ports:
   #     - 8081:8081
-  #   environment:
-  #     ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_ROOT_USER
-  #     ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_ROOT_PWD
+  #   env_file: .env
+  # #  environment:
+  # #    ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_ROOT_USER
+  # #    ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_ROOT_PWD
   #   networks: 
   #     - net-backend
   #     - net-frontend
@@ -31,13 +32,10 @@ services:
   node-web-app:
     image: andrelsa/node-web-app:latest 
     ports:
-      - 8080:8080
+      - "8080"
     depends_on: 
       - mongo
     env_file: .env
-    # environment:
-    #   MONGO_ROOT_USER: $MONGO_ROOT_USER
-    #   MONGO_ROOT_PWD: $MONGO_ROOT_PWD
     networks: 
       - net-backend
       - net-frontend
@@ -47,7 +45,7 @@ services:
     volumes:
       - /home/f0739445/Documentos/labbs/nodejs/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
-      - 9090:9090
+      - "9090"
     networks:
       - net-frontend
 
@@ -55,9 +53,23 @@ services:
     image: grafana/grafana:5.3.2
     volumes:
       - vol-grafana:/var/lib/grafana
-    # user: "472"
     ports:
-      - 3000:3000
+      - "3000"
+    networks: 
+      - net-frontend
+
+  nginxproxy:
+    image: nginx
+    volumes:
+     - /home/f0739445/Documentos/labbs/nodejs/nginx/:/etc/nginx/
+    depends_on:
+      - prometheus
+      - node-web-app
+      - grafana
+    ports:
+      - "80:80"
+      - "3000:3000"
+      - "9090:9090"
     networks: 
       - net-frontend
 
