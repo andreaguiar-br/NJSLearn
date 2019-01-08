@@ -1,5 +1,5 @@
 mongo
 grafana
-.env
+*.env
 nginx/logs
 node_modules

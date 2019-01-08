@@ -4,3 +4,4 @@ mongo
 *.dockerfile
 grafana
 nginx
+*.env
