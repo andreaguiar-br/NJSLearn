@@ -3,7 +3,8 @@ services:
   mongo:
     image: mongo
     volumes: 
-      - /home/f0739445/Documentos/labbs/nodejs/mongo:/data/db
+      # - /home/f0739445/Documentos/labbs/nodejs/mongo:/data/db
+      - vol-mongobase:/data/db
     restart: always
     ports:
       - "27017"
@@ -36,19 +37,31 @@ services:
       - net-backend
       - net-frontend
 
+  # prometheus:
+  #   image: prom/prometheus
+  #   volumes:
+  #     - /home/f0739445/Documentos/labbs/nodejs/prometheus.yml:/etc/prometheus/prometheus.yml
+  #   ports:
+  #     - "9090"
+  #   networks:
+  #     - net-frontend
+
   prometheus:
-    image: prom/prometheus
-    volumes:
-      - /home/f0739445/Documentos/labbs/nodejs/prometheus.yml:/etc/prometheus/prometheus.yml
+    image: arq3dsc/prometheus
     ports:
       - "9090"
-    networks:
+    environment:
+      - SCRAPE_INTERVAL=15s
+      - SCRAPE_TIMEOUT=10s
+      - STATIC_SCRAPE_TARGETS=mynodeapp@node-web-app:8080/metrics
+    networks: 
       - net-frontend
 
   grafana:
-    image: grafana/grafana:5.3.2
+    image: arq3dsc/nodejs-grafana:5.3.2
     volumes:
-      - vol-grafana:/var/lib/grafana
+      - vol-nodegrafana:/var/lib/grafana
+      # - /home/f0739445/Documentos/labbs/nodejs/grafana_files:/var/lib/grafanabkp
     ports:
       - "3000"
     networks: 
@@ -77,4 +90,6 @@ networks:
     driver: bridge
 
 volumes:
-  vol-grafana:
+  # vol-grafana:
+  vol-nodegrafana:
+  vol-mongobase:
