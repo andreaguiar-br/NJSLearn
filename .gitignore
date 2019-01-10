@@ -1,5 +1,4 @@
 mongo
-grafana
 *.env
 nginx/logs
 node_modules
