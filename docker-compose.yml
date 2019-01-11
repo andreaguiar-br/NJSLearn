@@ -67,7 +67,6 @@ services:
       - node-web-app
       - grafana
     ports:
-      - "80:80"
       - "3000:3000"
       - "9090:9090"
       - "8081:8081"
