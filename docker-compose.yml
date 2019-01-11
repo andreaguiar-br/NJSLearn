@@ -3,7 +3,6 @@ services:
   mongo:
     image: mongo
     volumes: 
-      # - vol-mongobase:/data/db
       - /mnt/dados/andrelsa/meunode/mongo:/data/db
     restart: always
     ports:
@@ -50,8 +49,6 @@ services:
 
   grafana:
     image: registry.labbs.com.br/andrelsa/nodejs-grafana:0.0.1-SNAPSHOT
-    # volumes:
-    #   - vol-nodegrafana:/var/lib/grafana
     ports:
       - "3000"
     networks: 
