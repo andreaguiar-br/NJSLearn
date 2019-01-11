@@ -75,13 +75,22 @@ services:
       - "8081:8081"
     networks: 
       - net-frontend
+    deploy:
+      labels:
+         - traefik.docker.network=traefik-net
+         - traefik.frontend.rule=Host:andrelsa-app1.labbs.com.br
+         - traefik.port=80
+         - traefik.frontend.entryPoints=internal_http,internal_https,external_http,external_https
+
 
 networks:
   net-backend:
     driver: bridge
   net-frontend:
-    driver: bridge
+    external:
+      name: traefik-net 
+
 
 volumes:
   vol-nodegrafana:
-  vol-mongobase:
+  vol-mongobase: 
