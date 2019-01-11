@@ -7,7 +7,7 @@ services:
     ports:
       - "27017"
     env_file: 
-    - mongo.env
+      - mongo.env
     networks:
       - net-backend
 
@@ -29,7 +29,8 @@ services:
       - "8080"
     depends_on: 
       - mongo
-    env_file: .env
+    env_file: 
+      - .env
     networks: 
       - net-backend
       - traefik-net
