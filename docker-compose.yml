@@ -65,7 +65,6 @@ services:
       - node-web-app
       - grafana
     ports:
-      - "80:80"
       - "3000:3000"
       - "9090:9090"
       - "8081:8081"
@@ -75,6 +74,7 @@ services:
       labels:
          - traefik.docker.network=traefik-net
          - traefik.frontend.rule=Host:andrelsa-app1.labbs.com.br
+         - traefik.port=80
          - traefik.frontend.entryPoints=internal_http,internal_https,external_http,external_https
 
 
