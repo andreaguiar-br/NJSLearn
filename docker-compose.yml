@@ -23,7 +23,7 @@ services:
       - mongoexp.env
     networks: 
       - net-backend
-      - net-frontend
+      - traefik-net
 
   node-web-app:
     image: registry.labbs.com.br/andrelsa/node-web-app:0.0.1-SNAPSHOT 
@@ -34,7 +34,7 @@ services:
     env_file: .env
     networks: 
       - net-backend
-      - net-frontend
+      - traefik-net
 
   prometheus:
     image: registry.labbs.com.br/andrelsa/prometheus
@@ -45,7 +45,7 @@ services:
       - SCRAPE_TIMEOUT=10s
       - STATIC_SCRAPE_TARGETS=mynodeapp@node-web-app:8080/metrics
     networks: 
-      - net-frontend
+      - traefik-net
 
   grafana:
     image: registry.labbs.com.br/andrelsa/nodejs-grafana:0.0.1-SNAPSHOT
@@ -54,7 +54,7 @@ services:
     ports:
       - "3000"
     networks: 
-      - net-frontend
+      - traefik-net
 
   nginxproxy:
     image: registry.labbs.com.br/andrelsa/nginx-proxy
@@ -74,7 +74,7 @@ services:
       - "9090:9090"
       - "8081:8081"
     networks: 
-      - net-frontend
+      - traefik-net
     deploy:
       labels:
          - traefik.docker.network=traefik-net
@@ -85,8 +85,8 @@ services:
 
 networks:
   net-backend:
-    driver: bridge
-  net-frontend:
+    driver: overlay
+  traefik-net:
     external:
       name: traefik-net 
 
