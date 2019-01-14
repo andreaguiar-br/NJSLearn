@@ -36,7 +36,7 @@ services:
       - traefik-net
 
   prometheus:
-    image: registry.labbs.com.br/andrelsa/prometheus
+    image: registry.labbs.com.br/andrelsa/prometheus:0.0.1-SNAPSHOT
     ports:
       - "9090"
     environment:
@@ -54,7 +54,7 @@ services:
       - traefik-net
 
   nginxproxy:
-    image: registry.labbs.com.br/andrelsa/nginx-proxy
+    image: registry.labbs.com.br/andrelsa/nginx-proxy:0.0.1-SNAPSHOT
     environment: 
       - PROXY_DESTINATION_1=80|/|http|node-web-app|8080
       - PROXY_DESTINATION_2=3000|/|http|grafana|3000
