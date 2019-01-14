@@ -2,15 +2,53 @@
 
 const express = require('express');
 
+//variaveis para autenticação
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+require('dotenv-safe').load();   //para carga do SECRET para JWT
+
+
 // Constants
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
 // App
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get('/', (req, res) => {
   addMetricaInvocacao('/')
   res.send('Hello world\n');
+});
+
+
+
+
+//gerando token
+app.post('/token', (req, res) => {
+
+  addMetricaInvocacao('/token');
+
+  // console.log(req.body);
+  
+  if(req.body.user === 'user1' && req.body.password === 'pass1'){
+    
+    var claims = {
+      sub: 'user1',
+      name: 'usuário um',
+      iss: 'https://mynodeapp.com',
+      permissions: 'none'
+    }
+    
+    //auth ok
+    var token = jwt.sign(claims, process.env.SECRET, {
+      expiresIn: 300 // expires in 5min
+    });
+    res.status(200).send({  auth: true, name: claims.name, token: token });
+  }
+  
+  res.status(500).send('Login inválido!');
 });
 
 // Respondendo ao hello
