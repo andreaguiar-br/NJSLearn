@@ -31,6 +31,9 @@ services:
       - mongo
     env_file: 
       - .env
+    environment: 
+      - MONGO_ROOT_USER=root
+      - MONGO_ROOT_PWD=demolabbs
     networks: 
       - net-backend
       - traefik-net
