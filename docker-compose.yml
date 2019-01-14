@@ -42,7 +42,7 @@ services:
     environment:
       - SCRAPE_INTERVAL=15s
       - SCRAPE_TIMEOUT=10s
-      - STATIC_SCRAPE_TARGETS=mynodeapp@node-web-app:8080/metrics
+      - STATIC_SCRAPE_TARGETS=mynodeapp@andrelsa-meunode_node-web-app:8080/metrics
     networks: 
       - traefik-net
 
@@ -56,10 +56,10 @@ services:
   nginxproxy:
     image: registry.labbs.com.br/andrelsa/nginx-proxy:0.0.1-SNAPSHOT
     environment: 
-      - PROXY_DESTINATION_1=80|/|http|node-web-app|8080
-      - PROXY_DESTINATION_2=3000|/|http|grafana|3000
-      - PROXY_DESTINATION_3=9090|/|http|prometheus|9090
-      - PROXY_DESTINATION_4=8081|/|http|mongo-express|8081
+      - PROXY_DESTINATION_1=80|/|http|andrelsa-meunode_node-web-app|8080
+      - PROXY_DESTINATION_2=3000|/|http|andrelsa-meunode_grafana|3000
+      - PROXY_DESTINATION_3=9090|/|http|andrelsa-meunode_prometheus|9090
+      - PROXY_DESTINATION_4=8081|/|http|andrelsa-meunode_mongo-express|8081
 
     depends_on:
       - prometheus
